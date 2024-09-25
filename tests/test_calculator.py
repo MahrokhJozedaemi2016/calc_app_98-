@@ -1,4 +1,7 @@
-from my_calculator import MyCalculator
+"""
+This module contains tests for the ArithmeticOperation class and related functions.
+"""
+from calculator import MyCalculator  # Changed to import from 'calculator'
 
 def test_add():
     """Test addition functionality."""

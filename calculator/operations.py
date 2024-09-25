@@ -1,18 +1,18 @@
 from decimal import Decimal
 
-def add_numbers(a: Decimal, b: Decimal) -> Decimal:
+def add(a: Decimal, b: Decimal) -> Decimal:
     """Perform addition."""
     return a + b
 
-def subtract_numbers(a: Decimal, b: Decimal) -> Decimal:
+def subtract(a: Decimal, b: Decimal) -> Decimal:
     """Perform subtraction."""
     return a - b
 
-def multiply_numbers(a: Decimal, b: Decimal) -> Decimal:
+def multiply(a: Decimal, b: Decimal) -> Decimal:
     """Perform multiplication."""
     return a * b
 
-def divide_numbers(a: Decimal, b: Decimal) -> Decimal:
+def divide(a: Decimal, b: Decimal) -> Decimal:
     """Perform division, with additional validation for zero."""
     if b == Decimal(0):
         raise ValueError("Division by zero is not allowed.")

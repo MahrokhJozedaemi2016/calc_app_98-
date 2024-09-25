@@ -1,6 +1,5 @@
 from decimal import Decimal
 from typing import Callable
-import time
 
 class ArithmeticOperation:
     def __init__(self, operand1: Decimal, operand2: Decimal, operator: Callable[[Decimal, Decimal], Decimal]):
@@ -8,7 +7,6 @@ class ArithmeticOperation:
         self.operand1 = operand1
         self.operand2 = operand2
         self.operator = operator
-        self.timestamp = time.time()  # Track when the calculation was made
 
     @staticmethod
     def initialize(a: Decimal, b: Decimal, operator: Callable[[Decimal, Decimal], Decimal]):
@@ -25,5 +23,5 @@ class ArithmeticOperation:
             raise e  # You can log or add custom behavior here
 
     def __repr__(self):
-        """Custom string representation to show more details."""
-        return f"Operation({self.operand1}, {self.operand2}, {self.operator.__name__}, Performed at: {time.ctime(self.timestamp)})"
+        """Simplified string representation to match the test expectation."""
+        return f"ArithmeticOperation({self.operand1}, {self.operand2}, {self.operator.__name__})"

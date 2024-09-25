@@ -1,6 +1,6 @@
-from my_calculator.calculation_handler import CalculationManager
-from my_calculator.arithmetic import add_numbers, subtract_numbers, multiply_numbers, divide_numbers
-from my_calculator.single_calculation import ArithmeticOperation
+from calculator.calculations import CalculationManager
+from calculator.operations import add, subtract, multiply, divide  # Updated imports
+from calculator.calculation import ArithmeticOperation  # Updated import
 from decimal import Decimal
 from typing import Callable
 
@@ -15,20 +15,20 @@ class MyCalculator:
     @staticmethod
     def add(a: Decimal, b: Decimal) -> Decimal:
         """Static method to perform addition."""
-        return MyCalculator.perform_operation(a, b, add_numbers)
+        return MyCalculator.perform_operation(a, b, add)
 
     @staticmethod
     def subtract(a: Decimal, b: Decimal) -> Decimal:
         """Static method to perform subtraction."""
-        return MyCalculator.perform_operation(a, b, subtract_numbers)
+        return MyCalculator.perform_operation(a, b, subtract)
 
     @staticmethod
     def multiply(a: Decimal, b: Decimal) -> Decimal:
         """Static method to perform multiplication."""
-        return MyCalculator.perform_operation(a, b, multiply_numbers)
+        return MyCalculator.perform_operation(a, b, multiply)
 
     @staticmethod
     def divide(a: Decimal, b: Decimal) -> Decimal:
         """Static method to perform division."""
-        return MyCalculator.perform_operation(a, b, divide_numbers)
+        return MyCalculator.perform_operation(a, b, divide)
 
