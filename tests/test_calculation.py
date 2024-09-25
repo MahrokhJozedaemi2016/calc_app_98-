@@ -68,7 +68,7 @@ def test_initialization():
     # Check if the operands and operator are properly initialized
     assert operation.operand1 == Decimal('10')
     assert operation.operand2 == Decimal('5')
-    assert operation.operator == add  # pylint: disable=comparison-with-callable
+    assert operation.operator is add # Use "is" for function comparison
 
 
 def test_initialization_via_factory_method():
