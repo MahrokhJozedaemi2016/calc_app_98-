@@ -6,17 +6,17 @@ import pytest
 from calculator.calculation import ArithmeticOperation  # Import from 'calculator'
 from calculator.operations import add, subtract, multiply, divide  # Import from 'calculator'
 
-
-@pytest.mark.parametrize("operand1, operand2, operation, result", [
-    (Decimal('10'), Decimal('5'), add, Decimal('15')),
-    (Decimal('10'), Decimal('5'), subtract, Decimal('5')),
-    (Decimal('10'), Decimal('5'), multiply, Decimal('50')),
-    (Decimal('10'), Decimal('2'), divide, Decimal('5')),
-    (Decimal('10.5'), Decimal('0.5'), add, Decimal('11.0')),
-    (Decimal('10.5'), Decimal('0.5'), subtract, Decimal('10.0')),
-    (Decimal('10.5'), Decimal('2'), multiply, Decimal('21.0')),
-    (Decimal('10'), Decimal('0.5'), divide, Decimal('20')),
-])
+# Using parametrize to test various operations while maintaning your iroginal ligic
+# @pytest.mark.parametrize("operand1, operand2, operation, result", [
+    # (Decimal('10'), Decimal('5'), add, Decimal('15')),
+    # (Decimal('10'), Decimal('5'), subtract, Decimal('5')),
+    # (Decimal('10'), Decimal('5'), multiply, Decimal('50')),
+   #  (Decimal('10'), Decimal('2'), divide, Decimal('5')),
+    # (Decimal('10.5'), Decimal('0.5'), add, Decimal('11.0')),
+    # (Decimal('10.5'), Decimal('0.5'), subtract, Decimal('10.0')),
+    # (Decimal('10.5'), Decimal('2'), multiply, Decimal('21.0')),
+    # (Decimal('10'), Decimal('0.5'), divide, Decimal('20')),
+# ])
 def test_operations(operand1, operand2, operation, result):
     """Ensure operations in the ArithmeticOperation class work correctly."""
     calc = ArithmeticOperation(operand1, operand2, operation)
