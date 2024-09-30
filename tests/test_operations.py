@@ -6,25 +6,12 @@ import pytest
 from calculator.calculation import ArithmeticOperation  # Changed to import from 'calculator'
 from calculator.operations import add, subtract, multiply, divide, power  # Added 'power'
 
-def test_add_operation():
-    """Test the addition operation."""
-    operation = ArithmeticOperation(Decimal('10'), Decimal('5'), add)
-    assert operation.execute() == Decimal('15')
-
-def test_subtract_operation():
-    """Test the subtraction operation."""
-    operation = ArithmeticOperation(Decimal('10'), Decimal('5'), subtract)
-    assert operation.execute() == Decimal('5')
-
-def test_multiply_operation():
-    """Test the multiplication operation."""
-    operation = ArithmeticOperation(Decimal('10'), Decimal('5'), multiply)
-    assert operation.execute() == Decimal('50')
-
-def test_divide_operation():
-    """Test the division operation."""
-    operation = ArithmeticOperation(Decimal('10'), Decimal('5'), divide)
-    assert operation.execute() == Decimal('2')
+def test_operation(operand1, operand2, operation, result):
+    """
+    Test calculation operations for various scenarios.
+    """
+    calc = ArithmeticOperation(operand1, operand2, operation)
+    assert calc.execute() == result, f"{operation.__name__} operation failed"
 
 def test_divide_by_zero():
     """Test the divide by zero exception."""
