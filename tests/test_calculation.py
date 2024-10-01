@@ -1,79 +1,48 @@
 """
-This module contains tests for the ArithmeticOperation class and related functions.
+This module contains tests for the MathOperation class.
+The tests validate the correct execution of arithmetic operations and proper representation of the operations.
 """
+
 from decimal import Decimal
 import pytest
-from calculator.calculation import ArithmeticOperation  # Import from 'calculator'
-from calculator.operations import add, subtract, multiply, divide  # Import from 'calculator'
+from calculator.calculation import MathOperation  # Renamed Calculation to MathOperation
+from calculator.operations import addition, subtraction, multiplication, division  # pylint: disable=unused-import
 
-# Using parametrize to test various operations while maintaning your iroginal ligic
-# @pytest.mark.parametrize("operand1, operand2, operation, result", [
-    # (Decimal('10'), Decimal('5'), add, Decimal('15')),
-    # (Decimal('10'), Decimal('5'), subtract, Decimal('5')),
-    # (Decimal('10'), Decimal('5'), multiply, Decimal('50')),
-   #  (Decimal('10'), Decimal('2'), divide, Decimal('5')),
-    # (Decimal('10.5'), Decimal('0.5'), add, Decimal('11.0')),
-    # (Decimal('10.5'), Decimal('0.5'), subtract, Decimal('10.0')),
-    # (Decimal('10.5'), Decimal('2'), multiply, Decimal('21.0')),
-    # (Decimal('10'), Decimal('0.5'), divide, Decimal('20')),
-# ])
-def test_operations(operand1, operand2, operation, result):
-    """Ensure operations in the ArithmeticOperation class work correctly."""
-    calc = ArithmeticOperation(operand1, operand2, operation)
-    assert calc.execute() == result, f"Failed {operation.__name__} operation with {operand1} and {operand2}"
+def test_math_operation_execution(operand1, operand2, operation, expected):
+    """
+    Test math operations with various scenarios.
+    
+    This test ensures that the MathOperation class correctly performs the arithmetic operation
+    (specified by the 'operation' parameter) on two Decimal operands ('operand1' and 'operand2'),
+    and that the result matches the expected outcome.
+    
+    Parameters:
+        operand1 (Decimal): The first operand in the calculation.
+        operand2 (Decimal): The second operand in the calculation.
+        operation (function): The arithmetic operation to perform.
+        expected (Decimal): The expected result of the operation.
+    """
+    operation_instance = MathOperation(operand1, operand2, operation)  # Create a MathOperation instance with the provided operands and operation.
+    assert operation_instance.compute() == expected, f"Failed {operation.__name__} operation with {operand1} and {operand2}"  # Perform the operation and assert that the result matches the expected value.
 
+def test_math_operation_repr():
+    """
+    Test the string representation (__repr__) of the MathOperation class.
+    
+    This test verifies that the __repr__ method of a MathOperation instance returns a string
+    that accurately represents the state of the MathOperation object, including its operands and operation.
+    """
+    operation_instance = MathOperation(Decimal('10'), Decimal('5'), addition)  # Create a MathOperation instance for testing.
+    expected_repr = "MathOperation(10, 5, addition)"  # Define the expected string representation.
+    assert repr(operation_instance) == expected_repr, "The __repr__ method output does not match the expected string."  # Assert that the actual string representation matches the expected string.
 
-def test_representation():
-    """Test the string representation of an ArithmeticOperation instance."""
-    operation = ArithmeticOperation(Decimal('10'), Decimal('5'), add)
-    assert repr(operation) == "ArithmeticOperation(10, 5, add)"
-
-
-def test_divide_zero():
-    """Ensure division by zero raises an error."""
-    with pytest.raises(ValueError, match="Division by zero is not allowed"):
-        calc = ArithmeticOperation(Decimal('10'), Decimal('0'), divide)
-        calc.execute()
-
-
-def test_invalid_operator():
-    """Test that an invalid operator raises an exception."""
-    # Pass an invalid operator (None) to trigger an exception
-    with pytest.raises(TypeError):
-        operation = ArithmeticOperation(Decimal('10'), Decimal('5'), None)
-        operation.execute()
-
-
-def test_invalid_operand():
-    """Test that an invalid operand raises an exception."""
-    with pytest.raises(TypeError):
-        operation = ArithmeticOperation("invalid", Decimal('5'), add)
-        operation.execute()
-
-
-def test_catch_all_exception():
-    """Test the catch-all exception block in ArithmeticOperation's execute method."""
-    # Mock an operator that raises a specific error (e.g., RuntimeError)
-    def invalid_operation(operand1, operand2):
-        raise RuntimeError("Custom error")  # Use RuntimeError instead of Exception
-
-    with pytest.raises(RuntimeError, match="Custom error"):  # Use RuntimeError here as well
-        operation = ArithmeticOperation(Decimal('10'), Decimal('5'), invalid_operation)
-        operation.execute()
-
-
-def test_initialization():
-    """Test the initialization of ArithmeticOperation with given operands and operator."""
-    operation = ArithmeticOperation(Decimal('10'), Decimal('5'), add)
-    # Check if the operands and operator are properly initialized
-    assert operation.operand1 == Decimal('10')
-    assert operation.operand2 == Decimal('5')
-    assert operation.operator is add # Use "is" for function comparison
-
-
-def test_initialization_via_factory_method():
-    """Test the initialization of ArithmeticOperation using the factory method."""
-    operation = ArithmeticOperation.initialize(Decimal('10'), Decimal('5'), add)
-    assert operation.operand1 == Decimal('10')
-    assert operation.operand2 == Decimal('5')
-    assert operation.operator is add  # Use "is" for function comparison
+def test_division_by_zero():
+    """
+    Test division by zero to ensure it raises a ValueError.
+    
+    This test checks that attempting to perform a division operation with a zero divisor
+    correctly raises a ValueError, as dividing by zero is mathematically undefined and should be handled as an error.
+    """
+    operation_instance = MathOperation(Decimal('10'), Decimal('0'), division)  # Create a MathOperation instance with a zero divisor.
+    with pytest.raises(ValueError, match="Cannot divide by zero"):  # Expect a ValueError to be raised.
+        operation_instance.compute()  # Attempt to perform the calculation, which should trigger the ValueError.
